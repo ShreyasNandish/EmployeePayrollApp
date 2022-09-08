@@ -2,11 +2,10 @@ package com.bridgelabz.employeepayrollapp.model;
 
 import com.bridgelabz.employeepayrollapp.dto.EmployeeDTO;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
+
 
 @Entity
 public class Employee {
@@ -15,6 +14,9 @@ public class Employee {
     private Long id;
     private String name;
     private String gender;
+    @ElementCollection
+    @CollectionTable(name="department",joinColumns = @JoinColumn(name = "id"))
+    public List<String> department;
     private int salary;
     private LocalDate startDate;
     private String notes;
@@ -67,19 +69,61 @@ public class Employee {
         this.notes = notes;
     }
 
-    public Employee(String name, String gender, int salary, LocalDate startDate, String notes) {
+    public Employee(String name, String gender, int salary, LocalDate startDate, String notes, List<String> department) {
         this.name = name;
         this.gender = gender;
         this.salary = salary;
         this.startDate = startDate;
         this.notes = notes;
+        this.department = department;
+    }
+
+    public List<String> getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(List<String> department) {
+        this.department = department;
     }
 
     public Employee() {
     }
-    public Employee(EmployeeDTO employeeDTO)
-    {
+//    public Employee(EmployeeDTO employeeDTO,String gender,LocalDate startDate,String notes)
+//    {
+//        this.name = employeeDTO.getName();
+//        this.salary = employeeDTO.getSalary();
+//        this.department = employeeDTO.getName();
+//        this.gender = gender;
+//
+//
+//    }
+public Employee(EmployeeDTO employeeDTO,String gender,LocalDate startDate, String notes){
+    this.name = employeeDTO.getName();
+    this.salary = employeeDTO.getSalary();
+    this.department = employeeDTO.getDepartment();
+    this.gender = gender;
+    this.startDate = startDate;
+    this.notes = notes;
+}
+    public Employee(EmployeeDTO employeeDTO){
         this.name = employeeDTO.getName();
+        this.gender = employeeDTO.getGender();
+        this.notes = employeeDTO.getNotes();
+        this.startDate = employeeDTO.getStartDate();
         this.salary = employeeDTO.getSalary();
+        this.department = employeeDTO.getDepartment();
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", gender='" + gender + '\'' +
+                ", department=" + department +
+                ", salary=" + salary +
+                ", startDate=" + startDate +
+                ", notes='" + notes + '\'' +
+                '}';
     }
 }

@@ -1,6 +1,7 @@
 package com.bridgelabz.employeepayrollapp.service;
 
 import com.bridgelabz.employeepayrollapp.dto.EmployeeDTO;
+import com.bridgelabz.employeepayrollapp.exception.CustomException;
 import com.bridgelabz.employeepayrollapp.model.Employee;
 import com.bridgelabz.employeepayrollapp.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +27,18 @@ public class EmployeeService implements IEmployeeService{
 
     public Employee updateEmployee(EmployeeDTO employeeDTO,long id)
     {
-        Employee employee = employeeRepository.findById(id).get();
-        employee.setName(employeeDTO.getName());
-        employee.setSalary(employeeDTO.getSalary());
-        return employeeRepository.save(employee);
+        if (employeeRepository.findById(id).isPresent()) {
+            Employee employee = employeeRepository.findById(id).get();
+            employee.setName(employeeDTO.getName());
+            employee.setSalary(employeeDTO.getSalary());
+            return employeeRepository.save(employee);
+        }
+        else
+        {
+            throw new CustomException("Employee not present");
+        }
     }
+
 
     public String deleteEmployee(long id)
     {
@@ -39,7 +47,12 @@ public class EmployeeService implements IEmployeeService{
     }
     public List<Employee> getAllEmployees()
     {
-        return employeeRepository.findAll();
+        if (!employeeRepository.findAll().isEmpty()) {
+            return employeeRepository.findAll();
+        }
+        else {
+            throw new CustomException("Database is empty");
+        }
     }
 
 }

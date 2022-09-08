@@ -24,23 +24,23 @@ public class EmployeeController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<ResponseDTO> updateEmployee(@Valid @RequestBody EmployeeDTO employeeDTO,@PathVariable long id){
+    public ResponseEntity<ResponseDTO> updateEmployee(@Valid @RequestBody EmployeeDTO employeeDTO,@PathVariable long id)throws Exception{
         ResponseDTO responseDTO = new ResponseDTO("updated employee details",employeeService.updateEmployee(employeeDTO,id));
         return new ResponseEntity<>(responseDTO,HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<ResponseDTO> deleteEmployee(@PathVariable long id){
+    public ResponseEntity<ResponseDTO> deleteEmployee(@PathVariable long id) throws Exception{
         ResponseDTO responseDTO = new ResponseDTO("deleted employee",employeeService.deleteEmployee(id));
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
     @GetMapping("/getbyid/{id}")
-    public ResponseEntity<ResponseDTO> getEmployeebyId(@PathVariable long id){
+    public ResponseEntity<ResponseDTO> getEmployeebyId(@PathVariable long id) throws Exception{
         ResponseDTO responseDTO = new ResponseDTO("Employee displayed",employeeService.getEmployeeByID(id));
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
     @GetMapping("/getallemployees")
-    public ResponseEntity<ResponseDTO> getAllEmployees() {
+    public ResponseEntity<ResponseDTO> getAllEmployees() throws Exception {
         ResponseDTO responseDTO = new ResponseDTO("Employee displayed", employeeService.getAllEmployees());
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
