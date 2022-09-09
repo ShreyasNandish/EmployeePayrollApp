@@ -20,6 +20,7 @@ public class Employee {
     private int salary;
     private LocalDate startDate;
     private String notes;
+    private String email;
 
     public Long getId() {
         return id;
@@ -27,6 +28,14 @@ public class Employee {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getName() {
@@ -88,23 +97,15 @@ public class Employee {
 
     public Employee() {
     }
-//    public Employee(EmployeeDTO employeeDTO,String gender,LocalDate startDate,String notes)
-//    {
-//        this.name = employeeDTO.getName();
-//        this.salary = employeeDTO.getSalary();
-//        this.department = employeeDTO.getName();
-//        this.gender = gender;
-//
-//
-//    }
-public Employee(EmployeeDTO employeeDTO,String gender,LocalDate startDate, String notes){
-    this.name = employeeDTO.getName();
-    this.salary = employeeDTO.getSalary();
-    this.department = employeeDTO.getDepartment();
-    this.gender = gender;
-    this.startDate = startDate;
-    this.notes = notes;
-}
+
+//public Employee(EmployeeDTO employeeDTO,String gender,LocalDate startDate, String notes){
+//    this.name = employeeDTO.getName();
+//    this.salary = employeeDTO.getSalary();
+//    this.department = employeeDTO.getDepartment();
+//    this.gender = gender;
+//    this.startDate = startDate;
+//    this.notes = notes;
+//}
     public Employee(EmployeeDTO employeeDTO){
         this.name = employeeDTO.getName();
         this.gender = employeeDTO.getGender();
@@ -112,6 +113,7 @@ public Employee(EmployeeDTO employeeDTO,String gender,LocalDate startDate, Strin
         this.startDate = employeeDTO.getStartDate();
         this.salary = employeeDTO.getSalary();
         this.department = employeeDTO.getDepartment();
+        this.email =employeeDTO.getEmail();
     }
 
     @Override

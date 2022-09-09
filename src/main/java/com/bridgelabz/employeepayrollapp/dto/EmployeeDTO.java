@@ -19,4 +19,5 @@ public class EmployeeDTO {
     public String notes;
     public LocalDate startDate;
     public List<String> department;
+    public String email;
 }

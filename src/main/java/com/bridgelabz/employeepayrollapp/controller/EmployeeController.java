@@ -16,7 +16,7 @@ import javax.validation.Valid;
 public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
-
+// Adding employee to the database and giving a response message with a status code
     @PostMapping("/create")
     public ResponseEntity<ResponseDTO> addEmployee(@Valid @RequestBody EmployeeDTO employeeDTO){
         ResponseDTO responseDTO = new ResponseDTO("Added employee",employeeService.addEmployee(employeeDTO));
@@ -28,21 +28,23 @@ public class EmployeeController {
         ResponseDTO responseDTO = new ResponseDTO("updated employee details",employeeService.updateEmployee(employeeDTO,id));
         return new ResponseEntity<>(responseDTO,HttpStatus.OK);
     }
-
+//deleting employee with the help of a given employee unique ID
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<ResponseDTO> deleteEmployee(@PathVariable long id) throws Exception{
         ResponseDTO responseDTO = new ResponseDTO("deleted employee",employeeService.deleteEmployee(id));
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
+    //retrieving employee with their employee ID
     @GetMapping("/getbyid/{id}")
     public ResponseEntity<ResponseDTO> getEmployeebyId(@PathVariable long id) throws Exception{
         ResponseDTO responseDTO = new ResponseDTO("Employee displayed",employeeService.getEmployeeByID(id));
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
+
+    //Displaying all the employees that are present in database using getmapping annotation
     @GetMapping("/getallemployees")
     public ResponseEntity<ResponseDTO> getAllEmployees() throws Exception {
         ResponseDTO responseDTO = new ResponseDTO("Employee displayed", employeeService.getAllEmployees());
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
-
 }

@@ -1,6 +1,7 @@
 package com.bridgelabz.employeepayrollapp.service;
 
 import com.bridgelabz.employeepayrollapp.dto.EmployeeDTO;
+import com.bridgelabz.employeepayrollapp.email.EmailService;
 import com.bridgelabz.employeepayrollapp.exception.CustomException;
 import com.bridgelabz.employeepayrollapp.model.Employee;
 import com.bridgelabz.employeepayrollapp.repository.EmployeeRepository;
@@ -14,6 +15,8 @@ import java.util.Optional;
 public class EmployeeService implements IEmployeeService{
     @Autowired
     EmployeeRepository employeeRepository;
+    @Autowired
+    EmailService emailService;
 
     public Optional<Employee> getEmployeeByID(long id){
         return employeeRepository.findById(id);
@@ -22,6 +25,7 @@ public class EmployeeService implements IEmployeeService{
     public Employee addEmployee(EmployeeDTO employeeDTO)
     {
         Employee employee = new Employee(employeeDTO);
+        emailService.sendEmail(employeeDTO.getEmail(),"Employee add to database","Hi added new employee");
         return employeeRepository.save(employee);
     }
 
